@@ -112,7 +112,7 @@ class _PostScreenState extends State<PostScreen> {
           width: w,
           child: ListView(
             children: [
-            file==null?const  Text("No video selected"):  VideoPlayerWidget(file!.path),
+            file==null?const  Text("No video selected"):  VideoPlayerWidget(file.path),
               const SizedBox(
                 height: 10,
               ),
@@ -190,7 +190,7 @@ class _PostScreenState extends State<PostScreen> {
                             videoProvider.pickedvideo!.path);
                       }
                     } on FirebaseException catch (e) {
-                      MessageBars.flushbarerror(e.message!, context);
+                       MessageBars.flushbarerror(e.message!, context);
                       setState(() {
                         isLoading = false;
                       });

@@ -64,7 +64,7 @@ class _JoinVideoCallState extends State<JoinVideoCall> {
                       color: Colors.white,
                     )),
               ),
-              Container(width: w/2,child: TextField(controller: textEditingController,),),
+              SizedBox(width: w/2,child: TextField(controller: textEditingController,),),
               SizedBox(
                 child: ElevatedButton(
                     onPressed: () async {
@@ -96,7 +96,7 @@ class _JoinVideoCallState extends State<JoinVideoCall> {
                   height: 200,
                   child: RTCVideoView(_localRenderer),
                 )),
-            textEditingController.text.isEmpty? SizedBox(): Positioned(
+            textEditingController.text.isEmpty?const SizedBox(): Positioned(
                 bottom: 20,
                 child: Container(
                   decoration: const BoxDecoration(
@@ -109,7 +109,7 @@ class _JoinVideoCallState extends State<JoinVideoCall> {
                          Navigator.of(context).pop();
                       }
                       },
-                      icon: const Icon(Icons.mic)),
+                      icon: const Icon(Icons.phone)),
                 )),
             Positioned(
               right: w / 4,
