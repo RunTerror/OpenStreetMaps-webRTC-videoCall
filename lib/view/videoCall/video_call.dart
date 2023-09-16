@@ -107,7 +107,7 @@ class _VideoCallState extends State<VideoCall> {
                          Navigator.of(context).pop();
                       }
                       },
-                      icon: const Icon(Icons.mic)),
+                      icon: const Icon(Icons.phone)),
                 )),
             Positioned(
               right: w / 4,

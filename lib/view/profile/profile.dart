@@ -16,6 +16,8 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
+  final TextEditingController nameController = TextEditingController();
   bool isLoading = false;
 
   @override
@@ -24,7 +26,7 @@ class _ProfileState extends State<Profile> {
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
     final theme = Theme.of(context);
-    TextEditingController nameController = TextEditingController();
+   
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,

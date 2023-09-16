@@ -41,96 +41,98 @@ class _JoinVideoCallState extends State<JoinVideoCall> {
     var w=MediaQuery.of(context).size.width;
     var h=MediaQuery.of(context).size.height;
    return Scaffold(
-        body: Column(
-      children: [
-        SizedBox(
-          height: 100,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                  color: Colors.blue,
+        body: SingleChildScrollView(
+          child: Column(
+              children: [
+          SizedBox(
+            height: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                    color: Colors.blue,
+                  ),
+                  child: IconButton(
+                      onPressed: () async {
+                        await signaling.openUserMedia(
+                            _localRenderer, _remoteRenderer);
+                        setState(() {});
+                      },
+                      icon: const Icon(
+                        Icons.camera_alt,
+                        color: Colors.white,
+                      )),
                 ),
-                child: IconButton(
-                    onPressed: () async {
-                      await signaling.openUserMedia(
-                          _localRenderer, _remoteRenderer);
-                      setState(() {});
-                    },
-                    icon: const Icon(
-                      Icons.camera_alt,
-                      color: Colors.white,
-                    )),
-              ),
-              SizedBox(width: w/2,child: TextField(controller: textEditingController,),),
-              SizedBox(
-                child: ElevatedButton(
-                    onPressed: () async {
-                      await signaling.joinRoom(textEditingController.text, _remoteRenderer);
-                      setState(() {
-                      });
-                    },
-                    child: const Text("Join")),
-              )
-            ],
-          ),
-        ),
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            SizedBox(
-              height: h - 100,
-              child: RTCVideoView(
-                _remoteRenderer,
-                objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
-              ),
+                SizedBox(width: w/2,child: TextField(controller: textEditingController,),),
+                SizedBox(
+                  child: ElevatedButton(
+                      onPressed: () async {
+                        await signaling.joinRoom(textEditingController.text, _remoteRenderer);
+                        setState(() {
+                        });
+                      },
+                      child: const Text("Join")),
+                )
+              ],
             ),
-            Positioned(
-                bottom: 20,
-                right: 10,
-                height: 100,
-                child: SizedBox(
-                  width: 100,
-                  height: 200,
-                  child: RTCVideoView(_localRenderer),
-                )),
-            textEditingController.text.isEmpty?const SizedBox(): Positioned(
+          ),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              SizedBox(
+                height: h - 100,
+                child: RTCVideoView(
+                  _remoteRenderer,
+                  objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
+                ),
+              ),
+              Positioned(
+                  bottom: 20,
+                  right: 10,
+                  height: 100,
+                  child: SizedBox(
+                    width: 100,
+                    height: 200,
+                    child: RTCVideoView(_localRenderer),
+                  )),
+              textEditingController.text.isEmpty?const SizedBox(): Positioned(
+                  bottom: 20,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(100)),
+                        color: Colors.red),
+                    child: IconButton(
+                        onPressed: ()async {
+                        await signaling.endRoom(textEditingController.text.trim());
+                        if(mounted){
+                           Navigator.of(context).pop();
+                        }
+                        },
+                        icon: const Icon(Icons.phone)),
+                  )),
+              Positioned(
+                right: w / 4,
                 bottom: 20,
                 child: Container(
                   decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(100)),
-                      color: Colors.red),
+                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                    color: Colors.blue,
+                  ),
                   child: IconButton(
-                      onPressed: ()async {
-                      await signaling.endRoom(textEditingController.text.trim());
-                      if(mounted){
-                         Navigator.of(context).pop();
-                      }
+                      onPressed: () async {
+                        signaling.hangUp(_localRenderer);
                       },
-                      icon: const Icon(Icons.phone)),
-                )),
-            Positioned(
-              right: w / 4,
-              bottom: 20,
-              child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                  color: Colors.blue,
+                      icon: const Icon(
+                        Icons.pause,
+                        color: Colors.white,
+                      )),
                 ),
-                child: IconButton(
-                    onPressed: () async {
-                      signaling.hangUp(_localRenderer);
-                    },
-                    icon: const Icon(
-                      Icons.pause,
-                      color: Colors.white,
-                    )),
-              ),
-            )
-          ],
-        ),
-      ],
-    ));}
+              )
+            ],
+          ),
+              ],
+            ),
+        ));}
 }
