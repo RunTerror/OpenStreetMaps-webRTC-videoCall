@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
                 seedColor: const Color.fromARGB(255, 187, 135, 196)),
             useMaterial3: true,
           ),
-          initialRoute:
+          initialRoute: 
            FirebaseAuth.instance.currentUser == null
               ? RouteNames.loginscreen
               : RouteNames.landingScreen,

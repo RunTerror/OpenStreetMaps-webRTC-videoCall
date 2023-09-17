@@ -13,6 +13,7 @@ class LocationProvider with ChangeNotifier {
 
   getCurrentLocation() async {
     final userlocation = await location.getLocation();
+    print(userlocation);
     if (userlocation.latitude != null && userlocation.longitude != null) {
       _currentLocation =
           LatLng(userlocation.latitude!, userlocation.longitude!);
