@@ -73,10 +73,10 @@ class MyApp extends StatelessWidget {
                 seedColor: const Color.fromARGB(255, 187, 135, 196)),
             useMaterial3: true,
           ),
-          initialRoute:RouteNames.navigationscreen,
-          //  FirebaseAuth.instance.currentUser == null
-          //     ? RouteNames.loginscreen
-          //     : RouteNames.landingScreen,
+          initialRoute:
+           FirebaseAuth.instance.currentUser == null
+              ? RouteNames.loginscreen
+              : RouteNames.landingScreen,
           routes: {
             RouteNames.landingScreen: (context) => const LandingScreen(),
             RouteNames.videocallscreen: (context) => const VideoCall(),
